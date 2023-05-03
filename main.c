@@ -6,7 +6,7 @@
 /*   By: jewancti <jewancti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 22:02:44 by jewancti          #+#    #+#             */
-/*   Updated: 2023/05/03 06:31:19 by jewancti         ###   ########.fr       */
+/*   Updated: 2023/05/03 06:47:48 by jewancti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	print_content_file(const t_content_file *cf)
 		ft_printf("{cyan}Addr{reset}:\t\t%p\n", & tmp);
 		ft_printf("{green}Size{reset}:\t\t%u\n", tmp -> size);
 		ft_printf("{blue}Capacity{reset}:\t%u\n", tmp -> capacity);
-		ft_printf("{red}Line{reset}:\t\t%s\n", tmp -> line);
+		ft_printf("{red}Line{reset}:\t\t%s\n\n", tmp -> line);
 		tmp = tmp -> next;
 	}
 }

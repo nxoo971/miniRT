@@ -6,7 +6,7 @@
 /*   By: jewancti <jewancti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 22:13:04 by jewancti          #+#    #+#             */
-/*   Updated: 2023/05/03 06:35:46 by jewancti         ###   ########.fr       */
+/*   Updated: 2023/05/03 06:47:22 by jewancti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ t_content_file	*readfile(const char *filename)
 			break ;
 		if (*tmp == '\n')
 		{
+			cf_tmp -> next = cf_new();
 			cf_tmp = cf_tmp -> next;
-			cf_tmp = cf_new();
 			continue ;
 		}
 		cf_add(*tmp, cf_tmp);
