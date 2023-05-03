@@ -6,7 +6,7 @@
 /*   By: jewancti <jewancti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 22:13:04 by jewancti          #+#    #+#             */
-/*   Updated: 2023/05/03 06:47:22 by jewancti         ###   ########.fr       */
+/*   Updated: 2023/05/03 07:12:48 by jewancti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,24 @@ t_content_file	*readfile(const char *filename)
 		if (ret < 0)
 		{
 			cf_delete(cf);
+			close(fd);
 			return (NULL);
 		}
 		if (ret == 0)
 			break ;
 		if (*tmp == '\n')
 		{
-			cf_tmp -> next = cf_new();
-			cf_tmp = cf_tmp -> next;
+			if (cf_tmp -> size)
+			{
+				cf_add('\0', cf_tmp);
+				cf_tmp -> next = cf_new();
+				cf_tmp = cf_tmp -> next;
+			}
 			continue ;
 		}
 		cf_add(*tmp, cf_tmp);
 	}
+	close(fd);
+	cf_add('\0', cf_tmp);
 	return (cf);
 }
