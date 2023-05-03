@@ -6,16 +6,12 @@
 /*   By: jewancti <jewancti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 22:13:04 by jewancti          #+#    #+#             */
-/*   Updated: 2023/05/03 07:12:48 by jewancti         ###   ########.fr       */
+/*   Updated: 2023/05/04 01:22:45 by jewancti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "parse.h"
 # include "content_file.h"
-
-#ifndef MAX_READ_SIZE
-# define MAX_READ_SIZE	4096
-#endif
 
 bool	check_extension_filename(const char *filename)
 {
@@ -29,7 +25,7 @@ bool	check_extension_filename(const char *filename)
 	return (ft_strcmp((filename + i) - 3, EXTENSION_FILENAME) == 0);
 }
 
-t_content_file	*readfile(const char *filename)
+t_content_file	*readfile(const char *filename, t_infos *infos)
 {
 	t_content_file			*cf;
 	t_content_file			*cf_tmp;
@@ -58,6 +54,8 @@ t_content_file	*readfile(const char *filename)
 			if (cf_tmp -> size)
 			{
 				cf_add('\0', cf_tmp);
+				if (!parse_line(cf_tmp, infos))
+					return (false);
 				cf_tmp -> next = cf_new();
 				cf_tmp = cf_tmp -> next;
 			}

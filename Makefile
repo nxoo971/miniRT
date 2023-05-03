@@ -11,7 +11,7 @@ INCLUDES		= includes
 INCLUDESFT		= ./libft/${INCLUDES}
 
 SRC_FILES = $(addprefix $(MAIN_DIR), main.c) \
-			$(addprefix $(PARSE_DIR), parse.c) \
+			$(addprefix $(PARSE_DIR), parse.c parse_line.c) \
 			$(addprefix $(PTR_ARRAY_DIR), ptr_array.c) \
 			$(addprefix $(CONTENT_FILE_DIR), content_file.c)
 
@@ -27,7 +27,7 @@ DEPS = $(SRC_FILES:%.c=$(OBJS_DIR)/%.d)
 #									COMPILATION									#
  #=============================================================================#
 
-CC = cc
+CC = clang
 CFLAGS = -g3 -Wall -Wextra -Werror -I$(INCLUDES) -I$(INCLUDESFT)
 CDFLAGS = -MMD -MP
 
