@@ -27,7 +27,7 @@ DEPS = $(SRC_FILES:%.c=$(OBJS_DIR)/%.d)
 #									COMPILATION									#
  #=============================================================================#
 
-CC = cc
+CC = clang
 CFLAGS = -g3 -I$(INCLUDES) -I$(INCLUDESFT) -Wall -Wextra #-Werror
 CDFLAGS = -MMD -MP
 

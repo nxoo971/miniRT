@@ -6,7 +6,7 @@
 /*   By: jewancti <jewancti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 22:02:44 by jewancti          #+#    #+#             */
-/*   Updated: 2023/05/05 00:33:50 by jewancti         ###   ########.fr       */
+/*   Updated: 2023/05/06 01:40:10 by jewancti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ static
 void	print_figure_structs(const t_figure infos)
 {
 	const t_ambient_light	ambient_light = infos.ambient_light;
-	// const t_camera			camera = infos.camera;
-	// const t_light			light = infos.light;
-	// const t_sphere			sphere = infos.sphere;
+	const t_camera			camera = infos.camera;
+	const t_light			light = infos.light;
+	const t_sphere			sphere = infos.sphere;
 	// const t_plan			plan = infos.plan;
 	// const t_cylindre		cylindre = infos.cylindre;
 
@@ -47,14 +47,60 @@ void	print_figure_structs(const t_figure infos)
 	ft_printf("{cyan}\tAMBIENT LIGHT{reset}\n");
 	ft_printf("{red}\\* ********************** */{reset}\n");
 	ft_printf("Identifier: %s\n", ambient_light.identifier);
-	ft_printf("Ratio: %.1f\n", ambient_light.ratio);
+	printf("Ratio: %.1f\n", ambient_light.ratio);
 	ft_printf("Struct color:\n");
 	ft_printf("\t{red}R{reset}: %d\n", ambient_light.color.r);
 	ft_printf("\t{green}G{reset}: %d\n", ambient_light.color.g);
 	ft_printf("\t{blue}B{reset}: %d\n", ambient_light.color.b);
+	
 	ft_printf("\n");
 
+	ft_printf("{red}/* ********************** *\\{reset}\n");
+	ft_printf("{cyan}\t   CAMERA{reset}\n");
+	ft_printf("{red}\\* ********************** */{reset}\n");
+	ft_printf("Identifier: %s\n", camera.identifier);
+	ft_printf("View point:\n");
+	printf("\tx: %.1f\n", camera.viewpoint.x);
+	printf("\ty: %.1f\n", camera.viewpoint.y);
+	printf("\tz: %.1f\n", camera.viewpoint.z);
+	ft_printf("Orientation:\n");
+	printf("\tx: %.1f\n", camera.orientation.x);
+	printf("\ty: %.1f\n", camera.orientation.y);
+	printf("\tz: %.1f\n", camera.orientation.z);
+	ft_printf("FOV: %.1f\n", camera.FOV);
 	
+	ft_printf("\n");
+
+	ft_printf("{red}/* ********************** *\\{reset}\n");
+	ft_printf("{cyan}\t    LIGHT{reset}\n");
+	ft_printf("{red}\\* ********************** */{reset}\n");
+	ft_printf("Identifier: %s\n", light.identifier);
+	ft_printf("View point:\n");
+	printf("\tx: %.1f\n", light.point.x);
+	printf("\ty: %.1f\n", light.point.y);
+	printf("\tz: %.1f\n", light.point.z);
+	ft_printf("Struct color:\n");
+	ft_printf("\t{red}R{reset}: %d\n", light.color.r);
+	ft_printf("\t{green}G{reset}: %d\n", light.color.g);
+	ft_printf("\t{blue}B{reset}: %d\n", light.color.b);
+	
+	ft_printf("\n");
+
+	ft_printf("{red}/* ********************** *\\{reset}\n");
+	ft_printf("{cyan}\t   SPHERE{reset}\n");
+	ft_printf("{red}\\* ********************** */{reset}\n");
+	ft_printf("Identifier: %s\n", sphere.identifier);
+	ft_printf("View point:\n");
+	printf("\tx: %.1f\n", sphere.point.x);
+	printf("\ty: %.1f\n", sphere.point.y);
+	printf("\tz: %.1f\n", sphere.point.z);
+	ft_printf("Struct color:\n");
+	ft_printf("\t{red}R{reset}: %d\n", sphere.color.r);
+	ft_printf("\t{green}G{reset}: %d\n", sphere.color.g);
+	ft_printf("\t{blue}B{reset}: %d\n", sphere.color.b);
+	printf("Diameter: %f\n", sphere.diameter);
+	
+	ft_printf("\n");
 }
 
 int	main(int ac, char **av, char **env)
@@ -71,5 +117,40 @@ int	main(int ac, char **av, char **env)
 	print_content_file(cf);
 	print_figure_structs(infos);
 	cf_delete(cf);
+
+	// ft_memset(& infos, 0, sizeof(t_figure));
+
+	// void *ptr = (& infos);
+
+	// *((int *)(ptr + sizeof(int))) = -42;
+	// *((int *)(ptr + sizeof(int) * 2)) = 18;
+	// *((int *)(ptr + sizeof(int) * 3)) = 127;
+	// *((float *)(ptr + sizeof(int) * 3 + sizeof(float))) = -193.;
+	
+	// ft_printf("%p\n", & infos.camera.identifier);
+	// ft_printf("%p\n", & infos.camera.viewpoint);
+	// ft_printf("%p\n", & infos.camera.orientation);
+	// ft_printf("%p\n", & infos);
+	// ft_printf("%p\n", & infos.ambient_light);
+	// ft_printf("%p\n", & infos.ambient_light.color);
+	// ft_printf("%p\n", & infos.ambient_light.color.r);
+	// ft_printf("%p\n", & infos.ambient_light.color.g);
+	// ft_printf("%p\n", & infos.ambient_light.color.b);
+	// ft_printf("%p\n\n", & infos.ambient_light.ratio);
+
+	// ft_printf("%p\n", & infos.camera.identifier);
+	// ft_printf("%p\n", & infos.camera.viewpoint);
+	// ft_printf("%p\n", & infos.camera.orientation);
+	// ft_printf("%p\n", & infos.camera.FOV);
+	// ft_printf("%d\n", sizeof(t_vector));
+	
+	// ft_printf("%p\n", ptr);
+	// ft_printf("%p\n", ptr + 4);
+	// ft_printf("%p\n", ptr + 8);
+	// printf("%d\n", *(int*)(ptr + sizeof(int)));
+    // printf("%d\n", *(int*)(ptr + sizeof(int) * 2));
+    // printf("%d\n", *(int*)(ptr + sizeof(int) * 3));
+    // printf("%f\n", *(float *)(ptr + sizeof(int) * 3 + sizeof(float)));
+	// print_figure_structs(infos);
 	return 0;
 }

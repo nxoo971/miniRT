@@ -6,7 +6,7 @@
 /*   By: jewancti <jewancti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 00:00:34 by jewancti          #+#    #+#             */
-/*   Updated: 2023/05/05 03:44:53 by jewancti         ###   ########.fr       */
+/*   Updated: 2023/05/06 01:33:45 by jewancti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,8 @@ char	*get_data(char *s)
 }
 
 static
-bool	set_color(const char *s, t_color *color)
+bool	set_color(const char *s, int * const ptr)
 {
-	int *const	ptr = & color -> r;
 	int			nb;
 	int			i;
 
@@ -55,47 +54,100 @@ bool	set_color(const char *s, t_color *color)
 	return (true);
 }
 
-bool	fill_ambient_light(char *s, const size_t size, void *ptr)
+static
+char	*set_vector(char *s, float * const ptr)
 {
+	const size_t	size = ft_strlen(s);
 	size_t			act_size;
-	t_ambient_light	*al;
+	char			*find;
+	int				i;
 
-	al = (t_ambient_light *)ptr;
-	ft_strcpy(al -> identifier, s);
-	act_size = ft_strlen(s);
-	if (size > act_size + 1)
-		s += act_size + 1;
-	else
-		return (false);
-	s = get_data(s);
-	al -> ratio = atof(s);
-	act_size = ft_strlen(s);
-	if (size > act_size + 1)
-		s += act_size + 1;
-	else
-		return (false);
-	return (set_color(s, & al -> color));
+	i = 0;
+	while (i < 3)
+	{
+		find = ft_strchr(s, ',');
+		if (!find && i != 2)
+			return (NULL);
+		if (i != 2)
+			*find = 0;
+		*(ptr + i) = atof(s);
+		act_size = ft_strlen(s);
+		if (size > act_size + 1)
+			s += act_size + 1;
+		else
+			return (NULL);
+		i++;
+	}
+	return (s);
 }
 
-// bool	fill_struct(char *content, void *structure)
-// {
-	
-// }
+bool	fill_struct(char *content, const size_t size, void * const ptr)
+{
+	size_t	act_size;
+
+	content = get_data(content);
+	if (ft_strcmp((char *)ptr, AMBIENT_LIGHT_IDENTIFIER) == 0) {
+		*(float *)(ptr + sizeof(t_color) + sizeof(float)) = atof(content); // ratio
+		act_size = ft_strlen(content);
+		if (size > act_size + 1)
+			content += act_size + 1;
+		else
+			return (false);
+		return (set_color(content, ptr + sizeof(char [3]) + 1));
+	}
+	if (ft_strcmp((char *)ptr, CAMERA_IDENTIFIER) == 0) {
+		content = set_vector(content, ptr + sizeof(t_vector));	//viewpoint
+		if (!content)
+			return (false);
+		content = get_data(content);
+		content = set_vector(content, ptr + sizeof(t_vector) * 2); // orientation
+		*(float *)(ptr + sizeof(t_vector) * 3) = atof(content);
+		return (true);
+	}
+	return (true);
+}
+
+static
+int	get_index_from_identifier(const char *identifier)
+{
+	const char * const identifiers[MAX_PARAMETERS] = {
+		AMBIENT_LIGHT_IDENTIFIER, CAMERA_IDENTIFIER, LIGHT_IDENTIFIER,
+		SPHERE_IDENTIFIER, PLAN_IDENTIFIER, CYLINDRE_IDENTIFIER
+	};
+	int	i;
+
+	i = 0;
+	while (i < MAX_PARAMETERS)
+	{
+		if (ft_strcmp(identifier, identifiers[i]) == 0)
+			return (i);
+		i++;
+	}
+	return (-1);
+}
 
 bool	parse_line(t_content_file *node, t_figure *infos)
 {
-	// t_fill_infos	func[MAX_PARAMETERS] = {
-
-	// };
+	void * const addrs[MAX_PARAMETERS] = {
+		& infos -> ambient_light,
+		& infos -> camera,
+		& infos -> light,
+		& infos -> sphere,
+		& infos -> plan,
+		& infos -> cylindre,
+	};
 	char	*tmp;
+	size_t	act_size;
+	int		index;
 
 	tmp = node -> line;
 	tmp = get_data(tmp);
-	if (ft_strcmp(tmp, AMBIENT_LIGHT_IDENTIFIER) == 0)
-	{
-		if (fill_ambient_light(tmp, node -> size, & infos -> ambient_light))
-			return (true);
-	}
-	// ft_printf("%s\n", infos -> ambient_light.identifier);
-	return (false);
+	index = get_index_from_identifier(tmp);
+	if (index == -1)
+		return (false);
+	ft_strcpy((char *)addrs[index], tmp);
+	act_size = ft_strlen(tmp);
+	if (node -> size > act_size + 1)
+		tmp += act_size + 1;
+	return (fill_struct(tmp, node -> size, addrs[index]));
 }

@@ -6,7 +6,7 @@
 /*   By: jewancti <jewancti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 06:08:02 by jewancti          #+#    #+#             */
-/*   Updated: 2023/05/05 00:33:50 by jewancti         ###   ########.fr       */
+/*   Updated: 2023/05/05 23:13:16 by jewancti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,50 +48,50 @@ typedef struct	s_color
 
 typedef struct	s_ambient_light
 {
+	char		identifier[3];
 	t_color		color;
 	float		ratio;
-	char		identifier[3];
 }				t_ambient_light;
 
 typedef struct	s_camera
 {
+	char		identifier[3];
 	t_vector	viewpoint;
 	t_vector	orientation;
 	float		FOV;
-	char		identifier[3];
 }				t_camera;
 
 typedef struct	s_light
 {
+	char		identifier[3];
 	t_vector	point;
 	t_color		color;
-	char		identifier[3];
 }				t_light;
 
 typedef struct	s_sphere
 {
+	char		identifier[3];
 	t_vector	point;
 	t_color		color;
 	float		diameter;
-	char		identifier[3];
 }				t_sphere;
 
 typedef struct	s_plan
 {
+	char		identifier[3];
 	t_vector	point;
 	t_vector	orientation;
 	t_color		color;
-	char		identifier[3];
 }				t_plan;
 
 typedef struct	s_cylindre
 {
+	char		identifier[3];
 	t_vector	center;
 	t_vector	cylinder_axis;
 	t_color		color;
 	float		diameter;
 	float		height;
-	char		identifier[3];
 }				t_cylindre;
 
 typedef struct	s_figure
