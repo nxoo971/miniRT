@@ -6,7 +6,7 @@
 /*   By: jewancti <jewancti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 22:13:04 by jewancti          #+#    #+#             */
-/*   Updated: 2023/05/04 01:22:45 by jewancti         ###   ########.fr       */
+/*   Updated: 2023/05/05 03:40:03 by jewancti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ bool	check_extension_filename(const char *filename)
 	return (ft_strcmp((filename + i) - 3, EXTENSION_FILENAME) == 0);
 }
 
-t_content_file	*readfile(const char *filename, t_infos *infos)
+t_content_file	*readfile(const char *filename, t_figure *infos)
 {
 	t_content_file			*cf;
 	t_content_file			*cf_tmp;
@@ -34,7 +34,7 @@ t_content_file	*readfile(const char *filename, t_infos *infos)
 	int						ret;
 
 	if (fd < 0)
-		return (false);
+		return (NULL);
 	ret = 1;
 	cf = cf_new();
 	cf_tmp = cf;
@@ -54,8 +54,11 @@ t_content_file	*readfile(const char *filename, t_infos *infos)
 			if (cf_tmp -> size)
 			{
 				cf_add('\0', cf_tmp);
-				if (!parse_line(cf_tmp, infos))
-					return (false);
+				if (!parse_line(cf_tmp, infos)) {
+					close(fd);
+					cf_delete(cf);
+					return (NULL);
+				}
 				cf_tmp -> next = cf_new();
 				cf_tmp = cf_tmp -> next;
 			}

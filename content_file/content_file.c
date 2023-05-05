@@ -6,7 +6,7 @@
 /*   By: jewancti <jewancti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 05:30:55 by jewancti          #+#    #+#             */
-/*   Updated: 2023/05/03 07:11:53 by jewancti         ###   ########.fr       */
+/*   Updated: 2023/05/05 03:27:39 by jewancti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ void	cf_add(char c, t_content_file *cf)
 	{
 		cf -> capacity *= 2;
 		cf -> line = realloc(cf -> line, cf -> capacity);
-		if (!cf -> line)
-			return ;
 	}
 	cf -> line[cf -> size++] = c;
 }

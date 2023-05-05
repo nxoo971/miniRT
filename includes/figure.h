@@ -6,7 +6,7 @@
 /*   By: jewancti <jewancti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 06:08:02 by jewancti          #+#    #+#             */
-/*   Updated: 2023/05/03 06:09:48 by jewancti         ###   ########.fr       */
+/*   Updated: 2023/05/05 00:33:50 by jewancti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ typedef struct	s_camera
 	t_vector	viewpoint;
 	t_vector	orientation;
 	float		FOV;
-	char		identifier;
+	char		identifier[3];
 }				t_camera;
 
 typedef struct	s_light
@@ -94,7 +94,7 @@ typedef struct	s_cylindre
 	char		identifier[3];
 }				t_cylindre;
 
-typedef struct	s_infos
+typedef struct	s_figure
 {
 	t_ambient_light	ambient_light;
 	t_camera		camera;
@@ -102,6 +102,6 @@ typedef struct	s_infos
 	t_sphere		sphere;
 	t_plan			plan;
 	t_cylindre		cylindre;
-}				t_infos;
+}				t_figure;
 
 #endif

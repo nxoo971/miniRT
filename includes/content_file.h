@@ -6,16 +6,15 @@
 /*   By: jewancti <jewancti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 04:32:29 by jewancti          #+#    #+#             */
-/*   Updated: 2023/05/03 06:15:07 by jewancti         ###   ########.fr       */
+/*   Updated: 2023/05/04 23:43:39 by jewancti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CONTENT_FILE_H
 # define CONTENT_FILE_H
 
-# include <stdlib.h>
-# include <stddef.h>
 # include "libft.h"
+# include <math.h>
 
 #ifndef MIN_CONTENT_CAPICITY
 # define MIN_CONTENT_CAPICITY	20

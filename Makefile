@@ -27,8 +27,8 @@ DEPS = $(SRC_FILES:%.c=$(OBJS_DIR)/%.d)
 #									COMPILATION									#
  #=============================================================================#
 
-CC = clang
-CFLAGS = -g3 -Wall -Wextra -Werror -I$(INCLUDES) -I$(INCLUDESFT)
+CC = cc
+CFLAGS = -g3 -I$(INCLUDES) -I$(INCLUDESFT) -Wall -Wextra #-Werror
 CDFLAGS = -MMD -MP
 
  #=============================================================================#
@@ -40,7 +40,7 @@ NAME = miniRT
 all : $(NAME)
 
 $(NAME) : $(OBJS_DIR) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(CLFLAGS) libft/libft.a -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(CLFLAGS) libft/libft.a -lm -o $(NAME)
 
 $(OBJS_DIR) :
 	mkdir -p $(OBJS_DIR)/$(PARSE_DIR)

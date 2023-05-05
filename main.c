@@ -6,7 +6,7 @@
 /*   By: jewancti <jewancti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 22:02:44 by jewancti          #+#    #+#             */
-/*   Updated: 2023/05/04 00:43:21 by jewancti         ###   ########.fr       */
+/*   Updated: 2023/05/05 00:33:50 by jewancti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,33 @@ void	print_content_file(const t_content_file *cf)
 	}
 }
 
+static
+void	print_figure_structs(const t_figure infos)
+{
+	const t_ambient_light	ambient_light = infos.ambient_light;
+	// const t_camera			camera = infos.camera;
+	// const t_light			light = infos.light;
+	// const t_sphere			sphere = infos.sphere;
+	// const t_plan			plan = infos.plan;
+	// const t_cylindre		cylindre = infos.cylindre;
+
+	ft_printf("{red}/* ********************** *\\{reset}\n");
+	ft_printf("{cyan}\tAMBIENT LIGHT{reset}\n");
+	ft_printf("{red}\\* ********************** */{reset}\n");
+	ft_printf("Identifier: %s\n", ambient_light.identifier);
+	ft_printf("Ratio: %.1f\n", ambient_light.ratio);
+	ft_printf("Struct color:\n");
+	ft_printf("\t{red}R{reset}: %d\n", ambient_light.color.r);
+	ft_printf("\t{green}G{reset}: %d\n", ambient_light.color.g);
+	ft_printf("\t{blue}B{reset}: %d\n", ambient_light.color.b);
+	ft_printf("\n");
+
+	
+}
+
 int	main(int ac, char **av, char **env)
 {
-	t_infos	infos;
+	t_figure	infos = { 0 };
 
 	if (!env || !*env)
 		return ft_printf("{red}Error{reset}\nNo environment path available\n");
@@ -45,6 +69,7 @@ int	main(int ac, char **av, char **env)
 		return ft_printf("{red}Error{reset}\nWrong filename extension\n");
 	t_content_file *cf = readfile(av[1], & infos);
 	print_content_file(cf);
+	print_figure_structs(infos);
 	cf_delete(cf);
 	return 0;
 }
