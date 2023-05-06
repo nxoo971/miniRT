@@ -6,7 +6,7 @@
 /*   By: jewancti <jewancti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 22:02:44 by jewancti          #+#    #+#             */
-/*   Updated: 2023/05/06 01:40:10 by jewancti         ###   ########.fr       */
+/*   Updated: 2023/05/06 02:51:32 by jewancti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ void	print_figure_structs(const t_figure infos)
 	const t_camera			camera = infos.camera;
 	const t_light			light = infos.light;
 	const t_sphere			sphere = infos.sphere;
-	// const t_plan			plan = infos.plan;
-	// const t_cylindre		cylindre = infos.cylindre;
+	const t_plan			plan = infos.plan;
+	const t_cylinder		cylinder = infos.cylinder;
 
 	ft_printf("{red}/* ********************** *\\{reset}\n");
 	ft_printf("{cyan}\tAMBIENT LIGHT{reset}\n");
@@ -75,7 +75,7 @@ void	print_figure_structs(const t_figure infos)
 	ft_printf("{cyan}\t    LIGHT{reset}\n");
 	ft_printf("{red}\\* ********************** */{reset}\n");
 	ft_printf("Identifier: %s\n", light.identifier);
-	ft_printf("View point:\n");
+	ft_printf("Point:\n");
 	printf("\tx: %.1f\n", light.point.x);
 	printf("\ty: %.1f\n", light.point.y);
 	printf("\tz: %.1f\n", light.point.z);
@@ -83,6 +83,7 @@ void	print_figure_structs(const t_figure infos)
 	ft_printf("\t{red}R{reset}: %d\n", light.color.r);
 	ft_printf("\t{green}G{reset}: %d\n", light.color.g);
 	ft_printf("\t{blue}B{reset}: %d\n", light.color.b);
+	printf("Brightness: %.1f\n", light.brightness);
 	
 	ft_printf("\n");
 
@@ -90,7 +91,7 @@ void	print_figure_structs(const t_figure infos)
 	ft_printf("{cyan}\t   SPHERE{reset}\n");
 	ft_printf("{red}\\* ********************** */{reset}\n");
 	ft_printf("Identifier: %s\n", sphere.identifier);
-	ft_printf("View point:\n");
+	ft_printf("Point:\n");
 	printf("\tx: %.1f\n", sphere.point.x);
 	printf("\ty: %.1f\n", sphere.point.y);
 	printf("\tz: %.1f\n", sphere.point.z);
@@ -98,7 +99,47 @@ void	print_figure_structs(const t_figure infos)
 	ft_printf("\t{red}R{reset}: %d\n", sphere.color.r);
 	ft_printf("\t{green}G{reset}: %d\n", sphere.color.g);
 	ft_printf("\t{blue}B{reset}: %d\n", sphere.color.b);
-	printf("Diameter: %f\n", sphere.diameter);
+	printf("Diameter: %.1f\n", sphere.diameter);
+	
+	ft_printf("\n");
+
+	ft_printf("{red}/* ********************** *\\{reset}\n");
+	ft_printf("{cyan}\t    PLAN{reset}\n");
+	ft_printf("{red}\\* ********************** */{reset}\n");
+	ft_printf("Identifier: %s\n", plan.identifier);
+	ft_printf("Point:\n");
+	printf("\tx: %.1f\n", plan.point.x);
+	printf("\ty: %.1f\n", plan.point.y);
+	printf("\tz: %.1f\n", plan.point.z);
+	ft_printf("Orientation:\n");
+	printf("\tx: %.1f\n", plan.orientation.x);
+	printf("\ty: %.1f\n", plan.orientation.y);
+	printf("\tz: %.1f\n", plan.orientation.z);
+	ft_printf("Struct color:\n");
+	ft_printf("\t{red}R{reset}: %d\n", plan.color.r);
+	ft_printf("\t{green}G{reset}: %d\n", plan.color.g);
+	ft_printf("\t{blue}B{reset}: %d\n", plan.color.b);
+	
+	ft_printf("\n");
+
+	ft_printf("{red}/* ********************** *\\{reset}\n");
+	ft_printf("{cyan}\t  CYLINDER{reset}\n");
+	ft_printf("{red}\\* ********************** */{reset}\n");
+	ft_printf("Identifier: %s\n", cylinder.identifier);
+	ft_printf("Center:\n");
+	printf("\tx: %.1f\n", cylinder.center.x);
+	printf("\ty: %.1f\n", cylinder.center.y);
+	printf("\tz: %.1f\n", cylinder.center.z);
+	ft_printf("Cylinder axis:\n");
+	printf("\tx: %.1f\n", cylinder.cylinder_axis.x);
+	printf("\ty: %.1f\n", cylinder.cylinder_axis.y);
+	printf("\tz: %.1f\n", cylinder.cylinder_axis.z);
+	ft_printf("Struct color:\n");
+	ft_printf("\t{red}R{reset}: %d\n", cylinder.color.r);
+	ft_printf("\t{green}G{reset}: %d\n", cylinder.color.g);
+	ft_printf("\t{blue}B{reset}: %d\n", cylinder.color.b);
+	printf("Diameter: %.1f\n", cylinder.diameter);
+	printf("Height: %.1f\n", cylinder.height);
 	
 	ft_printf("\n");
 }

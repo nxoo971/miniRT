@@ -6,7 +6,7 @@
 /*   By: jewancti <jewancti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 06:08:02 by jewancti          #+#    #+#             */
-/*   Updated: 2023/05/05 23:13:16 by jewancti         ###   ########.fr       */
+/*   Updated: 2023/05/06 03:02:19 by jewancti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@
 # define PLAN_IDENTIFIER "pl"
 #endif
 
-#ifndef CYLINDRE_IDENTIFIER
-# define CYLINDRE_IDENTIFIER "cy"
+#ifndef CYLINDER_IDENTIFIER
+# define CYLINDER_IDENTIFIER "cy"
 #endif
 
 typedef float	t_vector __attribute__((ext_vector_type(3)));
@@ -66,6 +66,7 @@ typedef struct	s_light
 	char		identifier[3];
 	t_vector	point;
 	t_color		color;
+	float		brightness;
 }				t_light;
 
 typedef struct	s_sphere
@@ -84,15 +85,15 @@ typedef struct	s_plan
 	t_color		color;
 }				t_plan;
 
-typedef struct	s_cylindre
+typedef struct	s_cylinder
 {
 	char		identifier[3];
 	t_vector	center;
 	t_vector	cylinder_axis;
-	t_color		color;
 	float		diameter;
 	float		height;
-}				t_cylindre;
+	t_color		color;
+}				t_cylinder;
 
 typedef struct	s_figure
 {
@@ -101,7 +102,7 @@ typedef struct	s_figure
 	t_light			light;
 	t_sphere		sphere;
 	t_plan			plan;
-	t_cylindre		cylindre;
+	t_cylinder		cylinder;
 }				t_figure;
 
 #endif

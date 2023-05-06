@@ -6,7 +6,7 @@
 /*   By: jewancti <jewancti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 00:00:34 by jewancti          #+#    #+#             */
-/*   Updated: 2023/05/06 01:33:45 by jewancti         ###   ########.fr       */
+/*   Updated: 2023/05/06 03:16:29 by jewancti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,16 +95,30 @@ bool	fill_struct(char *content, const size_t size, void * const ptr)
 			return (false);
 		return (set_color(content, ptr + sizeof(char [3]) + 1));
 	}
-	if (ft_strcmp((char *)ptr, CAMERA_IDENTIFIER) == 0) {
-		content = set_vector(content, ptr + sizeof(t_vector));	//viewpoint
-		if (!content)
-			return (false);
+	content = set_vector(content, ptr + sizeof(t_vector));	// viewpoint/point/center
+	if (!content)
+		return (false);
+	if (ft_strcmp((char *)ptr, CAMERA_IDENTIFIER) == 0
+		|| ft_strcmp((char *)ptr, PLAN_IDENTIFIER) == 0
+		|| ft_strcmp((char *)ptr, CYLINDER_IDENTIFIER) == 0) {
 		content = get_data(content);
-		content = set_vector(content, ptr + sizeof(t_vector) * 2); // orientation
+		content = set_vector(content, ptr + (sizeof(t_vector) * 2)); // orientation
+		if (ft_strcmp((char *)ptr, PLAN_IDENTIFIER) == 0)
+			return (set_color(content, ptr + (sizeof(t_vector) * 3)));
+		content = get_data(content);
 		*(float *)(ptr + sizeof(t_vector) * 3) = atof(content);
-		return (true);
+		if (ft_strcmp((char *)ptr, CYLINDER_IDENTIFIER))
+			return (true);
+		content += ft_strlen(content) + 1;
+		content = get_data(content);
+		*(float *)(ptr + sizeof(t_vector) * 3 + sizeof(float)) = atof(content);
+		content += ft_strlen(content) + 1;
+		return (set_color(content, ptr + (sizeof(t_vector) * 3) + (sizeof(float) * 2)));
 	}
-	return (true);
+	content = get_data(content);
+	*(float *)(ptr + (sizeof(t_vector) * 2) + sizeof(t_color)) = atof(content); // ratio/diameter_sphere
+	act_size = ft_strlen(content);
+	return (size > act_size + 1 && set_color(content + act_size + 1, ptr + (sizeof(t_vector) * 2)));
 }
 
 static
@@ -112,7 +126,7 @@ int	get_index_from_identifier(const char *identifier)
 {
 	const char * const identifiers[MAX_PARAMETERS] = {
 		AMBIENT_LIGHT_IDENTIFIER, CAMERA_IDENTIFIER, LIGHT_IDENTIFIER,
-		SPHERE_IDENTIFIER, PLAN_IDENTIFIER, CYLINDRE_IDENTIFIER
+		SPHERE_IDENTIFIER, PLAN_IDENTIFIER, CYLINDER_IDENTIFIER
 	};
 	int	i;
 
@@ -134,7 +148,7 @@ bool	parse_line(t_content_file *node, t_figure *infos)
 		& infos -> light,
 		& infos -> sphere,
 		& infos -> plan,
-		& infos -> cylindre,
+		& infos -> cylinder,
 	};
 	char	*tmp;
 	size_t	act_size;
