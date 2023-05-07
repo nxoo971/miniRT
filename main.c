@@ -6,7 +6,7 @@
 /*   By: jewancti <jewancti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 22:02:44 by jewancti          #+#    #+#             */
-/*   Updated: 2023/05/06 02:51:32 by jewancti         ###   ########.fr       */
+/*   Updated: 2023/05/07 01:17:56 by jewancti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,9 +155,13 @@ int	main(int ac, char **av, char **env)
 	if (check_extension_filename(av[1]) == false)
 		return ft_printf("{red}Error{reset}\nWrong filename extension\n");
 	t_content_file *cf = readfile(av[1], & infos);
-	print_content_file(cf);
-	print_figure_structs(infos);
-	cf_delete(cf);
+	if (cf) {
+		print_content_file(cf);
+		print_figure_structs(infos);
+		cf_delete(cf);
+	} else {
+		ft_printf("{red}Error{reset}\nParsing: KO\n");
+	}
 
 	// ft_memset(& infos, 0, sizeof(t_figure));
 

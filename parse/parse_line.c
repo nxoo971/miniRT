@@ -6,7 +6,7 @@
 /*   By: jewancti <jewancti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 00:00:34 by jewancti          #+#    #+#             */
-/*   Updated: 2023/05/06 03:16:29 by jewancti         ###   ########.fr       */
+/*   Updated: 2023/05/07 03:52:14 by jewancti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ char	*get_data(char *s)
 	start = i;
 	while (s[i] && !ft_isspace(s[i]))
 		i++;
+	if (!s[i])
+		return (s + i);
 	s[i] = 0;
 	return (s + start);
 }
@@ -81,7 +83,7 @@ char	*set_vector(char *s, float * const ptr)
 	return (s);
 }
 
-bool	fill_struct(char *content, const size_t size, void * const ptr)
+bool	fill_struct(char *content, char *origin, const size_t size, void * const ptr)
 {
 	size_t	act_size;
 
@@ -103,12 +105,14 @@ bool	fill_struct(char *content, const size_t size, void * const ptr)
 		|| ft_strcmp((char *)ptr, CYLINDER_IDENTIFIER) == 0) {
 		content = get_data(content);
 		content = set_vector(content, ptr + (sizeof(t_vector) * 2)); // orientation
+		if (!content)
+			return (false);
 		if (ft_strcmp((char *)ptr, PLAN_IDENTIFIER) == 0)
 			return (set_color(content, ptr + (sizeof(t_vector) * 3)));
 		content = get_data(content);
 		*(float *)(ptr + sizeof(t_vector) * 3) = atof(content);
 		if (ft_strcmp((char *)ptr, CYLINDER_IDENTIFIER))
-			return (true);
+			return (origin + (size - 1) == content + ft_strlen(content));
 		content += ft_strlen(content) + 1;
 		content = get_data(content);
 		*(float *)(ptr + sizeof(t_vector) * 3 + sizeof(float)) = atof(content);
@@ -163,5 +167,5 @@ bool	parse_line(t_content_file *node, t_figure *infos)
 	act_size = ft_strlen(tmp);
 	if (node -> size > act_size + 1)
 		tmp += act_size + 1;
-	return (fill_struct(tmp, node -> size, addrs[index]));
+	return (fill_struct(tmp, node -> line, node -> size, addrs[index]));
 }
