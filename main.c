@@ -6,7 +6,7 @@
 /*   By: jewancti <jewancti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 22:02:44 by jewancti          #+#    #+#             */
-/*   Updated: 2023/05/07 01:17:56 by jewancti         ###   ########.fr       */
+/*   Updated: 2023/05/11 06:02:42 by jewancti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ void	print_figure_structs(const t_figure infos)
 	const t_ambient_light	ambient_light = infos.ambient_light;
 	const t_camera			camera = infos.camera;
 	const t_light			light = infos.light;
-	const t_sphere			sphere = infos.sphere;
-	const t_plan			plan = infos.plan;
-	const t_cylinder		cylinder = infos.cylinder;
+	const t_sphere			*sphere = infos.sphere;
+	const t_plan			*plan = infos.plan;
+	const t_cylinder		*cylinder = infos.cylinder;
 
 	ft_printf("{red}/* ********************** *\\{reset}\n");
 	ft_printf("{cyan}\tAMBIENT LIGHT{reset}\n");
@@ -87,61 +87,65 @@ void	print_figure_structs(const t_figure infos)
 	
 	ft_printf("\n");
 
-	ft_printf("{red}/* ********************** *\\{reset}\n");
-	ft_printf("{cyan}\t   SPHERE{reset}\n");
-	ft_printf("{red}\\* ********************** */{reset}\n");
-	ft_printf("Identifier: %s\n", sphere.identifier);
-	ft_printf("Point:\n");
-	printf("\tx: %.1f\n", sphere.point.x);
-	printf("\ty: %.1f\n", sphere.point.y);
-	printf("\tz: %.1f\n", sphere.point.z);
-	ft_printf("Struct color:\n");
-	ft_printf("\t{red}R{reset}: %d\n", sphere.color.r);
-	ft_printf("\t{green}G{reset}: %d\n", sphere.color.g);
-	ft_printf("\t{blue}B{reset}: %d\n", sphere.color.b);
-	printf("Diameter: %.1f\n", sphere.diameter);
+	for (int i = 0; i < 512 && sphere[i].identifier[0]; i++) {	
+		ft_printf("{red}/* ********************** *\\{reset}\n");
+		ft_printf("{cyan}\t  SPHERE %d{reset}\n", i + 1);
+		ft_printf("{red}\\* ********************** */{reset}\n");
+		ft_printf("Identifier: %s\n", sphere[i].identifier);
+		ft_printf("Point:\n");
+		printf("\tx: %.1f\n", sphere[i].point.x);
+		printf("\ty: %.1f\n", sphere[i].point.y);
+		printf("\tz: %.1f\n", sphere[i].point.z);
+		ft_printf("Struct color:\n");
+		ft_printf("\t{red}R{reset}: %d\n", sphere[i].color.r);
+		ft_printf("\t{green}G{reset}: %d\n", sphere[i].color.g);
+		ft_printf("\t{blue}B{reset}: %d\n", sphere[i].color.b);
+		printf("Diameter: %.1f\n", sphere[i].diameter);
+		ft_printf("\n");
+	}
 	
-	ft_printf("\n");
 
-	ft_printf("{red}/* ********************** *\\{reset}\n");
-	ft_printf("{cyan}\t    PLAN{reset}\n");
-	ft_printf("{red}\\* ********************** */{reset}\n");
-	ft_printf("Identifier: %s\n", plan.identifier);
-	ft_printf("Point:\n");
-	printf("\tx: %.1f\n", plan.point.x);
-	printf("\ty: %.1f\n", plan.point.y);
-	printf("\tz: %.1f\n", plan.point.z);
-	ft_printf("Orientation:\n");
-	printf("\tx: %.1f\n", plan.orientation.x);
-	printf("\ty: %.1f\n", plan.orientation.y);
-	printf("\tz: %.1f\n", plan.orientation.z);
-	ft_printf("Struct color:\n");
-	ft_printf("\t{red}R{reset}: %d\n", plan.color.r);
-	ft_printf("\t{green}G{reset}: %d\n", plan.color.g);
-	ft_printf("\t{blue}B{reset}: %d\n", plan.color.b);
-	
-	ft_printf("\n");
+	for (int i = 0; i < 512 && plan[i].identifier[0]; i++) {	
+		ft_printf("{red}/* ********************** *\\{reset}\n");
+		ft_printf("{cyan}\t   PLAN %d{reset}\n", i + 1);
+		ft_printf("{red}\\* ********************** */{reset}\n");
+		ft_printf("Identifier: %s\n", plan[i].identifier);
+		ft_printf("Point:\n");
+		printf("\tx: %.1f\n", plan[i].point.x);
+		printf("\ty: %.1f\n", plan[i].point.y);
+		printf("\tz: %.1f\n", plan[i].point.z);
+		ft_printf("Orientation:\n");
+		printf("\tx: %.1f\n", plan[i].orientation.x);
+		printf("\ty: %.1f\n", plan[i].orientation.y);
+		printf("\tz: %.1f\n", plan[i].orientation.z);
+		ft_printf("Struct color:\n");
+		ft_printf("\t{red}R{reset}: %d\n", plan[i].color.r);
+		ft_printf("\t{green}G{reset}: %d\n", plan[i].color.g);
+		ft_printf("\t{blue}B{reset}: %d\n", plan[i].color.b);
+		ft_printf("\n");
+	}
 
-	ft_printf("{red}/* ********************** *\\{reset}\n");
-	ft_printf("{cyan}\t  CYLINDER{reset}\n");
-	ft_printf("{red}\\* ********************** */{reset}\n");
-	ft_printf("Identifier: %s\n", cylinder.identifier);
-	ft_printf("Center:\n");
-	printf("\tx: %.1f\n", cylinder.center.x);
-	printf("\ty: %.1f\n", cylinder.center.y);
-	printf("\tz: %.1f\n", cylinder.center.z);
-	ft_printf("Cylinder axis:\n");
-	printf("\tx: %.1f\n", cylinder.cylinder_axis.x);
-	printf("\ty: %.1f\n", cylinder.cylinder_axis.y);
-	printf("\tz: %.1f\n", cylinder.cylinder_axis.z);
-	ft_printf("Struct color:\n");
-	ft_printf("\t{red}R{reset}: %d\n", cylinder.color.r);
-	ft_printf("\t{green}G{reset}: %d\n", cylinder.color.g);
-	ft_printf("\t{blue}B{reset}: %d\n", cylinder.color.b);
-	printf("Diameter: %.1f\n", cylinder.diameter);
-	printf("Height: %.1f\n", cylinder.height);
-	
-	ft_printf("\n");
+	for (int i = 0; i < 512 && cylinder[i].identifier[0]; i++) {	
+		ft_printf("{red}/* ********************** *\\{reset}\n");
+		ft_printf("{cyan}\t CYLINDER %d{reset}\n", i + 1);
+		ft_printf("{red}\\* ********************** */{reset}\n");
+		ft_printf("Identifier: %s\n", cylinder[i].identifier);
+		ft_printf("Center:\n");
+		printf("\tx: %.1f\n", cylinder[i].center.x);
+		printf("\ty: %.1f\n", cylinder[i].center.y);
+		printf("\tz: %.1f\n", cylinder[i].center.z);
+		ft_printf("Cylinder axis:\n");
+		printf("\tx: %.1f\n", cylinder[i].cylinder_axis.x);
+		printf("\ty: %.1f\n", cylinder[i].cylinder_axis.y);
+		printf("\tz: %.1f\n", cylinder[i].cylinder_axis.z);
+		ft_printf("Struct color:\n");
+		ft_printf("\t{red}R{reset}: %d\n", cylinder[i].color.r);
+		ft_printf("\t{green}G{reset}: %d\n", cylinder[i].color.g);
+		ft_printf("\t{blue}B{reset}: %d\n", cylinder[i].color.b);
+		printf("Diameter: %.1f\n", cylinder[i].diameter);
+		printf("Height: %.1f\n", cylinder[i].height);
+		ft_printf("\n");
+	}
 }
 
 int	main(int ac, char **av, char **env)

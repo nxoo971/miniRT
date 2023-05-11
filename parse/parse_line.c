@@ -6,7 +6,7 @@
 /*   By: jewancti <jewancti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 00:00:34 by jewancti          #+#    #+#             */
-/*   Updated: 2023/05/07 03:52:14 by jewancti         ###   ########.fr       */
+/*   Updated: 2023/05/11 06:04:14 by jewancti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,9 @@ int	get_index_from_identifier(const char *identifier)
 
 bool	parse_line(t_content_file *node, t_figure *infos)
 {
-	void * const addrs[MAX_PARAMETERS] = {
+	static const int	jump[MAX_PARAMETERS] = { 0, 0, 0, sizeof(t_sphere), sizeof(t_plan), sizeof(t_cylinder) };
+	static int			times[MAX_PARAMETERS] = { 0, 0, 0, -1, -1, -1 };
+	void *const			addrs[MAX_PARAMETERS] = {
 		& infos -> ambient_light,
 		& infos -> camera,
 		& infos -> light,
@@ -154,18 +156,21 @@ bool	parse_line(t_content_file *node, t_figure *infos)
 		& infos -> plan,
 		& infos -> cylinder,
 	};
-	char	*tmp;
-	size_t	act_size;
-	int		index;
+	char				*tmp;
+	size_t				act_size;
+	int					index;
 
 	tmp = node -> line;
 	tmp = get_data(tmp);
 	index = get_index_from_identifier(tmp);
 	if (index == -1)
 		return (false);
-	ft_strcpy((char *)addrs[index], tmp);
+	times[index]++;
+	if (times[0] > 1 || times[1] > 1 || times[2] > 1)
+		return (false);
+	ft_strcpy((char *)addrs[index] + (times[index] * jump[index]), tmp);
 	act_size = ft_strlen(tmp);
 	if (node -> size > act_size + 1)
 		tmp += act_size + 1;
-	return (fill_struct(tmp, node -> line, node -> size, addrs[index]));
+	return (fill_struct(tmp, node -> line, node -> size, addrs[index] + (times[index] * jump[index])));
 }

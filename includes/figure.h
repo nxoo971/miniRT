@@ -6,7 +6,7 @@
 /*   By: jewancti <jewancti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 06:08:02 by jewancti          #+#    #+#             */
-/*   Updated: 2023/05/06 03:02:19 by jewancti         ###   ########.fr       */
+/*   Updated: 2023/05/11 05:26:16 by jewancti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,9 @@ typedef struct	s_figure
 	t_ambient_light	ambient_light;
 	t_camera		camera;
 	t_light			light;
-	t_sphere		sphere;
-	t_plan			plan;
-	t_cylinder		cylinder;
+	t_sphere		sphere[512];
+	t_plan			plan[512];
+	t_cylinder		cylinder[512];
 }				t_figure;
 
 #endif
