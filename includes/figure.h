@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   figure.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jewancti <jewancti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mparisse <mparisse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 06:08:02 by jewancti          #+#    #+#             */
-/*   Updated: 2023/05/11 05:26:16 by jewancti         ###   ########.fr       */
+/*   Updated: 2023/06/02 17:44:57 by mparisse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,22 @@
 # define CYLINDER_IDENTIFIER "cy"
 #endif
 
+#ifndef EPSILON 
+# define EPSILON 0.00001
+#endif
+
 typedef float	t_vector __attribute__((ext_vector_type(3)));
+/*
+we might need to change this to one have on type of variable
+for points and vector
+
+it will become
+
+typedef float	t_vector __attribute__((ext_vector_type(4)));
+the w will be one if its a point or zero if its a a vector
+
+figure it out later
+*/
 
 typedef struct	s_color
 {

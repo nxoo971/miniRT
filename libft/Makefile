@@ -47,7 +47,7 @@ $(OBJDIR)/%.o: %.c
 	$(CC) $(CFLAGS) -I $(HEADERS) -c $< -o $@
 
 ${NAME}: $(OBJS)
-	@ar rcs $(NAME) $(OBJS)
+	@/usr/bin/ar rcs $(NAME) $(OBJS)
 
 all: ${NAME}
 

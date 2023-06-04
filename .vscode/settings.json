@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "content_file.h": "c"
+        "content_file.h": "c",
+        "math.h": "c"
     }
 }

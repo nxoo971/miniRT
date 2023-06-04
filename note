@@ -1,0 +1,22 @@
+Understand what ambiant lighting is
+
+########### Lighting ############
+
+A: Ambiant lighting:
+
+0.2 lighting ratio
+255,255,255 R,G,B colors in range
+
+########### Camera #############
+
+C: Camera
+
+first: coordinates x, y, z
+
+second: 3d normalized orientation vector
+# for now all i know is there is three different values
+# x, y, z going from [-1, 1]
+
+third: Horizontal field of view
+
+########### 
