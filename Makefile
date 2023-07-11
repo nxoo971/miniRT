@@ -6,7 +6,7 @@
 #    By: mparisse <mparisse@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/02 12:49:01 by mparisse          #+#    #+#              #
-#    Updated: 2023/06/02 12:49:04 by mparisse         ###   ########.fr        #
+#    Updated: 2023/07/11 14:42:34 by mparisse         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,8 @@ all : $(NAME)
 
 $(NAME) : $(OBJS_DIR) $(OBJS)
 	make -C libft/
-	$(CC) $(CFLAGS) $(OBJS) $(CLFLAGS) libft/libft.a -lm -o $(NAME)
+	make -C maxou_math
+	$(CC) $(CFLAGS) $(OBJS) $(CLFLAGS) libft/libft.a maxou_math/maxou_math.a -lm -o $(NAME)
 
 $(OBJS_DIR) :
 	mkdir -p $(OBJS_DIR)/$(PARSE_DIR)
@@ -63,11 +64,15 @@ $(OBJS_DIR) :
 $(OBJS) : $(OBJS_DIR)/%.o : %.c
 	$(CC) $(CFLAGS) $(CDFLAGS) -c $< -o $@
 
-clean :
+clean:
 	rm -rf $(OBJS_DIR)
+	make -C maxou_math/ clean
+	make -C libft/ clean
 
 fclean: clean
 	rm -rf $(NAME)
+	make -C maxou_math/ fclean
+	make -C libft/ fclean
 
 re : fclean all
 
